@@ -58,13 +58,13 @@ document.getElementById("studentForm").addEventListener("submit", async (e) => {
 document.getElementById("subjectForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const name = document.getElementById("subname").value;
-  const priority = document.getElementById("priority").value;
+  const weightage = document.getElementById("priority").value;
 
   try {
     const res = await fetch("http://localhost:5000/api/admin/add-subject", {
       method: "POST",
       headers,
-      body: JSON.stringify({ name, priority }),
+      body: JSON.stringify({ name, weightage }),
     });
 
     const data = await res.json();

@@ -11,7 +11,7 @@ const headers = {
 
 async function loadAttendance() {
   try {
-    const res = await fetch("http://localhost:5000/api/student/attendance", {
+    const res = await fetch("http://localhost:5000/api/students/attendance", {
       method: "GET",
       headers,
     });

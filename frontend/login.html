@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Login - Student Attendance</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" required><br><br>
+
+    <p>Select Role:</p>
+    <div class="role-buttons">
+      <button type="button" data-role="admin">Login as Admin</button>
+      <button type="button" data-role="teacher">Login as Teacher</button>
+      <button type="button" data-role="student">Login as Student</button>
+    </div>
+  </form>
+
+  <p id="error" style="color:red;"></p>
+
+  <script src="login.js"></script>
+</body>
+</html>

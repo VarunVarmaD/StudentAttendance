@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <h2>Welcome, Admin</h2>
+  <button onclick="logout()">Logout</button>
+
+  <hr>
+  <h3>Add Teacher</h3>
+  <form id="teacherForm">
+    <input type="text" id="tname" placeholder="Name" required>
+    <input type="text" id="tusername" placeholder="Username" required>
+    <input type="text" id="tpassword" placeholder="Password (optional)">
+    <input type="text" id="tsubjects" placeholder="Subject IDs (comma-separated)">
+    <button type="submit">Add Teacher</button>
+  </form>
+
+  <hr>
+  <h3>Add Student</h3>
+  <form id="studentForm">
+    <input type="text" id="sname" placeholder="Name" required>
+    <input type="text" id="sroll" placeholder="Roll No" required>
+    <input type="text" id="ssubjects" placeholder="Subject IDs (comma-separated)">
+    <button type="submit">Add Student</button>
+  </form>
+
+  <hr>
+  <h3>Add Subject</h3>
+  <form id="subjectForm">
+    <input type="text" id="subname" placeholder="Subject Name" required>
+    <input type="number" id="priority" placeholder="Priority" required>
+    <button type="submit">Add Subject</button>
+  </form>
+
+  <script src="admin.js"></script>
+</body>
+</html>

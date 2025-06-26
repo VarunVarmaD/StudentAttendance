@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Teacher Dashboard</title>
+</head>
+<body>
+  <h2>Welcome, Teacher</h2>
+  <button onclick="logout()">Logout</button>
+
+  <hr>
+  <h3>Mark Attendance</h3>
+  <form id="markForm">
+    <input type="text" id="subjectId" placeholder="Subject ID" required>
+    <input type="text" id="studentId" placeholder="Student ID" required>
+    <button type="submit">Mark</button>
+  </form>
+
+  <hr>
+  <h3>Students in My Subjects</h3>
+  <button onclick="loadStudents()">Load Students</button>
+  <div id="studentList"></div>
+
+  <script src="teacher.js"></script>
+</body>
+</html>

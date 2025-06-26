@@ -1,7 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const studentRoutes = require('./routes/students');
+require('dotenv').config();
+
+const authRoutes = require('./routes/auth');
+const adminRoutes = require('./routes/admin');           // Admin: manage users & subjects
+const studentRoutes = require('./routes/students');      // Students: view own attendance
+const teacherRoutes = require('./routes/teachers');      // Teachers: mark/view attendance
+
+const { seedAdmin } = require('./seed');
 
 const app = express();
 const PORT = 5000;
@@ -11,22 +18,23 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/students', studentRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);           // Admin actions
+app.use('/api/students', studentRoutes);      // Student self portal
+app.use('/api/teachers', teacherRoutes);      // Teacher actions
 
-// MongoDB connection string
-const MONGO_URI = 'mongodb+srv://varundantuluri:v%40run2003@studentattendance.pt1dnfc.mongodb.net/student-attendance?retryWrites=true&w=majority';
-
-mongoose.connect(MONGO_URI, {
+// MongoDB Connection
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => {
-  console.log('📡 Connected to MongoDB');
-  // Start server only after DB connects
+.then(async () => {
+  console.log('✅ Connected to MongoDB');
+  await seedAdmin(); // Default admin user
   app.listen(PORT, () => {
-    console.log(`✅ Server is running on http://localhost:${PORT}`);
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
   });
 })
-.catch((err) => {
-  console.error('❌ MongoDB connection error:', err);
+.catch(err => {
+  console.error('❌ DB Connection Error:', err);
 });

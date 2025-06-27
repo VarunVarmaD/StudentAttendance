@@ -2,29 +2,30 @@ const express = require('express');
 const router = express.Router();
 const { authenticate, authorize } = require('../middleware/authMiddleware');
 const Subject = require('../models/Subject');
+const Student = require('../models/Student');
+const Attendance = require('../models/Attendance');
 
 // 🔒 Protect this route with token and student role
 router.get('/attendance', authenticate, authorize('student'), async (req, res) => {
   try {
-    const studentId = req.user.id;
-
-    // Fetch all subjects
-    const subjects = await Subject.find({});
+    const userId = req.user.id;
+    const student = await Student.findOne({ user: userId }).populate('subjects');
+    if (!student) return res.status(404).json({ error: 'Student not found' });
 
     const result = [];
 
-    for (const subject of subjects) {
-      const totalClasses = subject.attendance.length;
-      const attended = subject.attendance.filter(a => a.student.toString() === studentId).length;
+    for (const subject of student.subjects) {
+      const totalClasses = await Attendance.countDocuments({ subject: subject._id });
+      const attended = await Attendance.countDocuments({ student: student._id, subject: subject._id });
 
-      const percentage = totalClasses === 0 ? 0 : ((attended / totalClasses) * 100).toFixed(2);
+      const percentage = totalClasses === 0 ? 0 : Number(((attended / totalClasses) * 100).toFixed(2));
 
       result.push({
         subject: subject.name,
         totalClasses,
         attended,
         percentage,
-        weight: subject.weight || 1
+        weight: subject.weightage || 1
       });
     }
 

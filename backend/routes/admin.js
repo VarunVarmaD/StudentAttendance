@@ -111,13 +111,13 @@ router.post('/add-student', async (req, res) => {
  * 3️⃣ Add a new Subject
  */
 router.post('/add-subject', async (req, res) => {
-  const { name, priority } = req.body;
+  const { name, weightage } = req.body;
 
   try {
     const existing = await Subject.findOne({ name });
     if (existing) return res.status(400).json({ error: 'Subject already exists' });
 
-    const subject = await Subject.create({ name, priority });
+    const subject = await Subject.create({ name, weightage });
     res.status(201).json({ message: 'Subject created', subject });
   } catch (err) {
     console.error(err);
